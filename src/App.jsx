@@ -1,12 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
-
-// shadcn/ui Components
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
@@ -14,8 +11,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-// Icons from lucide-react
 import {
   CalendarDays,
   Package,
@@ -35,6 +30,7 @@ import {
   ExternalLink,
   Database,
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const categories = [
   "Produits secs",
@@ -567,11 +563,19 @@ export default function InventaireRestaurantApp() {
                     <DialogHeader><DialogTitle>Ajouter une livraison au stock du {period}</DialogTitle></DialogHeader>
                     <div className="space-y-4 overflow-hidden">
                       <Tabs value={deliveryCategory} onValueChange={setDeliveryCategory}>
-                        <TabsList className="grid h-auto w-full grid-cols-2 gap-2 rounded-2xl bg-transparent p-0 sm:flex sm:flex-wrap sm:justify-start">
-                          {categories.map((category) => (
-                            <TabsTrigger key={category} value={category} className="rounded-2xl border bg-white px-3 py-2 text-xs sm:px-4 sm:text-sm data-[state=active]:shadow-sm">{category}</TabsTrigger>
-                          ))}
-                        </TabsList>
+                        <div className="-mx-1 overflow-x-scroll overscroll-x-contain pb-2 touch-pan-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                          <TabsList className="inline-flex h-auto w-max gap-2 rounded-2xl bg-transparent px-1 py-0">
+                            {categories.map((category) => (
+                              <TabsTrigger
+                                key={category}
+                                value={category}
+                                className="shrink-0 whitespace-nowrap rounded-2xl border bg-white px-4 py-2 text-sm data-[state=active]:shadow-sm"
+                              >
+                                {category}
+                              </TabsTrigger>
+                            ))}
+                          </TabsList>
+                        </div>
                       </Tabs>
                       <div className="max-h-[50vh] space-y-4 overflow-y-auto pr-2">
                         {deliveryItems.map((item) => {
@@ -610,11 +614,19 @@ export default function InventaireRestaurantApp() {
 
           <CardContent className="space-y-5">
             <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-              <TabsList className="grid h-auto w-full grid-cols-2 gap-2 rounded-2xl bg-transparent p-0 sm:flex sm:flex-wrap sm:justify-start">
-                {categories.map((category) => (
-                  <TabsTrigger key={category} value={category} className="rounded-2xl border bg-white px-3 py-2 text-xs sm:px-4 sm:text-sm data-[state=active]:shadow-sm">{category}</TabsTrigger>
-                ))}
-              </TabsList>
+              <div className="-mx-1 overflow-x-scroll overscroll-x-contain pb-2 touch-pan-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <TabsList className="inline-flex h-auto w-max gap-2 rounded-2xl bg-transparent px-1 py-0">
+                  {categories.map((category) => (
+                    <TabsTrigger
+                      key={category}
+                      value={category}
+                      className="shrink-0 whitespace-nowrap rounded-2xl border bg-white px-4 py-2 text-sm data-[state=active]:shadow-sm"
+                    >
+                      {category}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
             </Tabs>
 
             <div className="relative max-w-md">
@@ -708,6 +720,6 @@ export default function InventaireRestaurantApp() {
 // 3. Export Excel doit télécharger un CSV avec : titre, date, moment, puis chaque section avec la liste des produits et leurs quantités.
 // 4. Le rajout livraison doit augmenter les quantités de la catégorie choisie.
 // 5. Changer entre matin et soir doit garder deux inventaires distincts.
-// 6. En mobile, les boutons principaux doivent rester cliquables et les champs quantités lisibles.
+// 6. En mobile, les boutons principaux doivent rester cliquables, les champs quantités lisibles, et la liste des catégories doit défiler horizontalement au doigt avec une vraie zone de scroll tactile.
 // 7. La fenêtre Sauvegardes doit permettre d'ouvrir une date et d'exporter matin ou soir.
 // 8. Après déploiement Vercel, localStorage doit continuer à fonctionner sur le domaine déployé.
