@@ -681,31 +681,33 @@ export default function InventaireRestaurantApp() {
             <DialogHeader>
               <DialogTitle>Sauvegardes locales et exports</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4 overflow-y-auto pr-1">
-              <div className="rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
-                <p><strong>Application :</strong> prête à être déployée sur Vercel.</p>
-                <p className="mt-1"><strong>Sauvegardes / exports :</strong> accessibles depuis cette fenêtre dans l'application.</p>
-              </div>
+            <div className="max-h-[70vh] overflow-y-auto overscroll-y-contain pr-1 touch-pan-y [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="space-y-4">
+                <div className="rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
+                  <p><strong>Application :</strong> prête à être déployée sur Vercel.</p>
+                  <p className="mt-1"><strong>Sauvegardes / exports :</strong> accessibles depuis cette fenêtre dans l'application.</p>
+                </div>
 
-              {savedDates.map((dateKey) => (
-                <Card key={dateKey} className="rounded-2xl border bg-white shadow-sm">
-                  <CardContent className="space-y-3 p-4">
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                      <div>
-                        <p className="font-semibold">{dateKey}</p>
-                        <p className="text-sm text-slate-500">Inventaires matin et soir disponibles</p>
+                {savedDates.map((dateKey) => (
+                  <Card key={dateKey} className="rounded-2xl border bg-white shadow-sm">
+                    <CardContent className="space-y-3 p-4">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                          <p className="font-semibold">{dateKey}</p>
+                          <p className="text-sm text-slate-500">Inventaires matin et soir disponibles</p>
+                        </div>
+                        <Button variant="outline" className="rounded-2xl" onClick={() => openSavedDate(dateKey)}>
+                          Ouvrir cette date
+                        </Button>
                       </div>
-                      <Button variant="outline" className="rounded-2xl" onClick={() => openSavedDate(dateKey)}>
-                        Ouvrir cette date
-                      </Button>
-                    </div>
-                    <div className="grid gap-2 sm:grid-cols-2">
-                      <Button className="rounded-2xl" onClick={() => exportSavedDate(dateKey, "matin")}>Exporter matin</Button>
-                      <Button className="rounded-2xl" onClick={() => exportSavedDate(dateKey, "soir")}>Exporter soir</Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                      <div className="grid gap-2 sm:grid-cols-2">
+                        <Button className="rounded-2xl" onClick={() => exportSavedDate(dateKey, "matin")}>Exporter matin</Button>
+                        <Button className="rounded-2xl" onClick={() => exportSavedDate(dateKey, "soir")}>Exporter soir</Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </DialogContent>
         </Dialog>
